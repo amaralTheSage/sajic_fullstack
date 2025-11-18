@@ -208,9 +208,9 @@ class LectureController extends Controller
     // PATCH Finaliza Palestra
     public function finish(Request $request, Lecture $lecture){
         $lecture->update(['finished'=> true]);
-        
+
         Log::info('Admin [' . Auth::user()->email . '] fez finalizou a palestra [' . $lecture->title . ']');
-        
+
         return to_route('lectures.index');
     }
 
@@ -225,5 +225,20 @@ class LectureController extends Controller
         Cache::forget('lectures_list');
 
         return back();
+    }
+
+    public function generate_certificates(){
+        $users = LectureAttendance::
+            select('users.name', 'users.email', DB::raw('COUNT(*) AS lectures'))
+            ->where('showed_up', true)
+            ->join('users', 'users.id', '=', 'user_id')
+            ->groupBy('users.name', 'users.email')
+            ->havingRaw('COUNT(*) > 2')
+            ->orderBy('lectures')
+            ->get();
+
+        // Log::info('Admin [' . Auth::user()->email . '] gerou os certificados');
+
+        return $users;
     }
 }
