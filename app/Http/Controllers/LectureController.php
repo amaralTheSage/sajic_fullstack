@@ -248,6 +248,6 @@ class LectureController extends Controller
 
         Log::info('Admin [' . Auth::user()->email . '] gerou os certificados');
 
-        return $users;
+        return back();
     }
 }
