@@ -6,6 +6,6 @@ acaba de ser registrado no sistema
 
 Certificados serão distribuídos após o evento.
 
-Agradeçemos sua participação,<br>
+Agradecemos sua participação,<br>
 {{ config('app.name') }}
 </x-mail::message>

@@ -8,6 +8,6 @@ Aperte o botão abaixo para acessar seu certificado
     Baixar certificado
 </x-mail::button>
 
-Agradeçemos sua participação,<br>
+Agradecemos sua participação,<br>
 {{ config('app.name') }}
 </x-mail::message>
