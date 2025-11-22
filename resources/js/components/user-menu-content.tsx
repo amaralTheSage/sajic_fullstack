@@ -13,8 +13,10 @@ import {
     BookPlus,
     ListChecks,
     LogOut,
+    MailCheck,
     Settings,
 } from 'lucide-react';
+import GenerateCertificatesDialog from './generate-certificates-dialog';
 
 export function UserMenuContent({ user }: { user: User }) {
     const cleanup = useMobileNavigation();
@@ -82,6 +84,19 @@ export function UserMenuContent({ user }: { user: User }) {
                             <ListChecks className="mr-2" /> Presenças
                         </Link>
                     </DropdownMenuItem>
+                ) : (
+                    ''
+                )}
+
+                {user.is_admin ? (
+                    <GenerateCertificatesDialog>
+                        <DropdownMenuItem
+                            onSelect={e => e.preventDefault()}
+                            className="max-md:hidden"
+                        >
+                            <MailCheck className="mr-2" /> Liberar Certificados
+                        </DropdownMenuItem>
+                    </GenerateCertificatesDialog>
                 ) : (
                     ''
                 )}
