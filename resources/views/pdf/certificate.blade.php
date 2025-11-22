@@ -160,7 +160,7 @@
     </div>
 
     <a class="link" href="https://sathon.com.br/storage/certificates/{{ $file_name }}">
-        https://sathon.com.br/storage/certificates/{{ $file_name }}
+        https://sathon.com.br/certificate/{{ $file_name }}
     </a>
 
 </body>

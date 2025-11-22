@@ -34,7 +34,7 @@ class ActuallySendCertificate extends Mailable
         return new Content(
             markdown: 'mail.actually-send-certificate',
             with: [
-                'url' => Storage::disk('public')->url('certificates/' . $this->fileName),
+                'url' => route('certificate.download', $this->fileName)
             ]
         );
     }
