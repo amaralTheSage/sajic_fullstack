@@ -244,7 +244,6 @@ class LectureController extends Controller
 
         foreach ($users as $user) {
             ProcessCertificate::dispatch($user->toArray());
-            dd('stop');
         }
 
         Log::info('Admin [' . Auth::user()->email . '] gerou os certificados');
