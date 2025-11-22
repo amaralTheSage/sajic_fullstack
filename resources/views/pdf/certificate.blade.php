@@ -22,7 +22,6 @@
             height: 100vh;
             margin: 0;
             padding: 0;
-            font-family: Helvetica, Arial, sans-serif;
             position: relative;
         }
 
@@ -94,7 +93,6 @@
         }
 
         .title {
-            font-family: Helvetica, Arial, sans-serif;
             font-size: 42px;
             font-weight: bold;
             text-align: center;
@@ -104,7 +102,6 @@
         }
 
         .description {
-            font-family: 'Times New Roman', serif;
             font-size: 20px;
             text-align: center;
             color: #ffffff;
@@ -156,15 +153,14 @@
             <h1 class="title">Certificado de participação</h1>
             <p class="description">
                 Declaramos, para os devidos fins, que o(a) aluno(a) <strong>{{ $name }}</strong>
-                participou da palestra <strong>"{{ $title }}"</strong>, realizada durante a
-                <strong>Semana Acadêmica e Jornada de Iniciação Científica - SAJIC</strong>,
-                no dia <strong>{{ $date }}/2025</strong>, das <strong>{{ $start }}</strong> às <strong>{{ $end }}</strong> horas.
+                participou da <strong>Semana Acadêmica e Jornada de Iniciação Científica - SAJIC</strong>,
+                totalizando <strong>10 horas</strong> horas de participação.
             </p>
         </div>
     </div>
 
-    <a class="link" href="https://sathon.com.br/certificate/{{ $id }}">
-        https://sathon.com.br/certificate/{{ $id }}
+    <a class="link" href="https://sathon.com.br/storage/certificates/{{ $file_name }}">
+        https://sathon.com.br/storage/certificates/{{ $file_name }}
     </a>
 
 </body>

@@ -8,18 +8,13 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class ActuallySendCertificate extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(public string $fileName) {}
 
     /**
      * Get the message envelope.
@@ -38,6 +33,9 @@ class ActuallySendCertificate extends Mailable
     {
         return new Content(
             markdown: 'mail.actually-send-certificate',
+            with: [
+                'url' => Storage::disk('public')->url('certificates/' . $this->fileName),
+            ]
         );
     }
 

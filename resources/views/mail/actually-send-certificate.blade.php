@@ -1,12 +1,13 @@
 <x-mail::message>
-# Introduction
+# Certificado Sathon 2025
 
-The body of your message.
+Obrigado por participar!
+Aperte o botão abaixo para acessar seu certificado
 
-<x-mail::button :url="''">
-Button Text
+<x-mail::button :url="$url">
+    Baixar certificado
 </x-mail::button>
 
-Thanks,<br>
+Agradeçemos sua participação,<br>
 {{ config('app.name') }}
 </x-mail::message>

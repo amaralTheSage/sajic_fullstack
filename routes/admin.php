@@ -34,3 +34,6 @@ Route::patch('palestras/{lecture}/finish', [LectureController::class, 'finish'])
 
 // Reabre inscrições
 Route::patch('palestras/{lecture}/reabrir-inscricoes', [LectureController::class, 'reopen_enrollment'])->name('lectures.reopen_enrollment');
+
+// Enfim gera os certificados
+Route::post('certificados', [LectureController::class, 'generate_certificates'])->name('lectures.certificates');

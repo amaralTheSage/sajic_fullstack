@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessCertificate;
 use App\Mail\SendCertificate;
 use App\Models\Lecture;
 use App\Models\LectureAttendance;
 use App\Models\LectureType;
 use App\Models\Room;
 use App\Models\Speaker;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +17,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 use function PHPSTORM_META\type;
@@ -206,8 +210,9 @@ class LectureController extends Controller
     }
 
     // PATCH Finaliza Palestra
-    public function finish(Request $request, Lecture $lecture){
-        $lecture->update(['finished'=> true]);
+    public function finish(Request $request, Lecture $lecture)
+    {
+        $lecture->update(['finished' => true]);
 
         Log::info('Admin [' . Auth::user()->email . '] fez finalizou a palestra [' . $lecture->title . ']');
 
@@ -227,17 +232,22 @@ class LectureController extends Controller
         return back();
     }
 
-    public function generate_certificates(){
-        $users = LectureAttendance::
-            select('users.name', 'users.email', DB::raw('COUNT(*) AS lectures'))
+    public function generate_certificates()
+    {
+        $users = LectureAttendance::select('users.id', 'users.name', 'users.email', DB::raw('COUNT(*) AS lectures'))
             ->where('showed_up', true)
             ->join('users', 'users.id', '=', 'user_id')
-            ->groupBy('users.name', 'users.email')
+            ->groupBy('users.id', 'users.name', 'users.email')
             ->havingRaw('COUNT(*) > 2')
             ->orderBy('lectures')
             ->get();
 
-        // Log::info('Admin [' . Auth::user()->email . '] gerou os certificados');
+        foreach ($users as $user) {
+            ProcessCertificate::dispatch($user->toArray());
+            dd('stop');
+        }
+
+        Log::info('Admin [' . Auth::user()->email . '] gerou os certificados');
 
         return $users;
     }
